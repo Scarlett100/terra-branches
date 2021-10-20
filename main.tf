@@ -13,10 +13,10 @@ module "VPC" {
 module "Subnets" {
   source = "./Subnets"
 
-  vpc_id = module.VPC.vpc_id
-  subnet_cidr = "10.0.1.0/24"
+  vpc_id            = module.VPC.vpc_id
+  subnet_cidr       = "10.0.1.0/24"
   availability_zone = "eu-west-2a"
-  route_table_id   = module.VPC.route_table_id
+  route_table_id    = module.VPC.route_table_id
 }
 
 module "EC2" {
@@ -28,4 +28,5 @@ module "EC2" {
   availability_zone = "eu-west-2a"
   subnet_id         = module.Subnets.subnet_id
   security_group    = module.Subnets.security_group
+  instance_private_ip = format("%s%s", substr(module.Subnets.subnet_cidr, 0, 7), "50") # I'm just having fun here, just makes 10.0.1.50
 }

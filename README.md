@@ -29,6 +29,7 @@ The EC2 module is configured to create a single EC2 instance with a network inte
 - subnet_id: **Subnet Group ID**
 - key_name: **String**
 - availability_zone: **String**
+- instance_private_ip: **String**
 
 ### Outputs
 
@@ -51,6 +52,7 @@ Also creates a security group for the subnet and assosiates a provided route tab
 
 - subnet_id: **ID of Created Subnet**
 - security_group: **ID of Created Security Group**
+- subnet_cidr: **CIDR of Subnet**
 
 ***
 

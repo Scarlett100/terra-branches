@@ -1,7 +1,7 @@
 resource "aws_instance" "foo" {
-  ami           = var.ami 
-  instance_type = var.instance_type
-  key_name      = var.key_name
+  ami               = var.ami 
+  instance_type     = var.instance_type
+  key_name          = var.key_name
   availability_zone = var.availability_zone
 
   network_interface {
@@ -12,6 +12,6 @@ resource "aws_instance" "foo" {
 
 resource "aws_network_interface" "prod" {
   subnet_id       = var.subnet_id
-  private_ips     = ["10.0.1.50"]
+  private_ips     = [var.instance_private_ip]
   security_groups = [var.security_group]
 }
