@@ -16,6 +16,7 @@ module "Subnets" {
   vpc_id = module.VPC.vpc_id
   subnet_cidr = "10.0.1.0/24"
   availability_zone = "eu-west-2a"
+  route_table_id   = module.VPC.route_table_id
 }
 
 module "EC2" {
