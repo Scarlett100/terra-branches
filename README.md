@@ -1,6 +1,7 @@
 # terra-branch
 
 Simple Terraform infrastructure. Creates surrounding infrastructure and launches a simple instance into it with a public IP and SSH access.
+Also launches a private subnet group with an RDS instance behind a NAT gateway
 
 ## Project Inputs
 
@@ -23,6 +24,7 @@ Both pulled from system environment variables named;
 ## EC2 Module
 
 The EC2 module is configured to create a single EC2 instance with a network interface.
+As well as the RDS instance.
 ### Inputs
 
 - instance_type: **String**
@@ -46,8 +48,9 @@ The EC2 module is configured to create a single EC2 instance with a network inte
 
 ## Subnets Module
 
-The Subnets module is configured to create a single (public) subnet that maps a public IP to instance automatically on launch.
-Also creates a security group for the subnet and assosiates a provided route table to it.
+The Subnets module is configured to create a single (public) subnet that maps a public IP to instance automatically on launch and, 2 (private) subnets with no public IP assosiation. Then creates a subnet group using the private subnets.
+A NAT gateway is placed into the public subnet to allow connectivity to the private section.
+Also creates security groups for the subnets and assosiates the appropriate provided route tables to them.
 ### Inputs
 
 - vpc_id: **VPC ID**
@@ -73,6 +76,7 @@ Also creates a security group for the subnet and assosiates a provided route tab
 ## VPC Module
 
 The VPC module creates a new VPC, containing a standard Internet Gateway and a route table to properly allow access to the gateway.
+Also creates another route table to allow access through the NAT gateway for the private subnets.
 ### Inputs
 
 - vpc_cidr: **String**
